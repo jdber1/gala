@@ -63,7 +63,7 @@ cdef class SCFWrapper(CPotentialWrapper):
 
 class SCFPotential(CPotentialBase):
     r"""
-    SCFPotential(m, r_s, Snlm, Tnlm, units=None)
+    SCFPotential(m, r_s, Snlm, Tnlm, units=None, origin=None, R=None)
 
     A gravitational potential represented as a basis function expansion.  This
     uses the self-consistent field (SCF) method of Hernquist & Ostriker (1992)
@@ -91,7 +91,8 @@ class SCFPotential(CPotentialBase):
         length, mass, time, and angle units.
 
     """
-    def __init__(self, m, r_s, Snlm, Tnlm=None, units=None):
+    def __init__(self, m, r_s, Snlm, Tnlm=None, units=None,
+                 origin=None, R=None):
         from gala._cconfig import GSL_ENABLED
         if not GSL_ENABLED:
             raise ValueError("Gala was compiled without GSL and so the "
@@ -134,4 +135,6 @@ class SCFPotential(CPotentialBase):
                                            parameter_physical_types=ptypes,
                                            units=units,
                                            Wrapper=SCFWrapper,
+                                           origin=origin,
+                                           R=R,
                                            c_only=['nmax', 'lmax']) # don't expose these in the .parameters dictionary
