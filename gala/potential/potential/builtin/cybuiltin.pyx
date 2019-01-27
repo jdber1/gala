@@ -116,8 +116,11 @@ __all__ = ['NullPotential', 'HenonHeilesPotential', # Misc. potentials
 
 cdef class HenonHeilesWrapper(CPotentialWrapper):
 
-    def __init__(self, G, _, q0):
-        self.init([G], np.ascontiguousarray(q0), n_dim=2)
+    def __init__(self, G, _, q0, R):
+        self.init([G],
+                  np.ascontiguousarray(q0),
+                  np.ascontiguousarray(R),
+                  n_dim=2)
         self.cpotential.value[0] = <energyfunc>(henon_heiles_value)
         self.cpotential.gradient[0] = <gradientfunc>(henon_heiles_gradient)
 
@@ -152,8 +155,10 @@ class HenonHeilesPotential(CPotentialBase):
 #
 cdef class KeplerWrapper(CPotentialWrapper):
 
-    def __init__(self, G, parameters, q0):
-        self.init([G] + list(parameters), np.ascontiguousarray(q0))
+    def __init__(self, G, parameters, q0, R):
+        self.init([G] + list(parameters),
+                  np.ascontiguousarray(q0),
+                  np.ascontiguousarray(R))
         self.cpotential.value[0] = <energyfunc>(kepler_value)
         self.cpotential.density[0] = <densityfunc>(kepler_density)
         self.cpotential.gradient[0] = <gradientfunc>(kepler_gradient)
@@ -193,8 +198,10 @@ class KeplerPotential(CPotentialBase):
 
 cdef class IsochroneWrapper(CPotentialWrapper):
 
-    def __init__(self, G, parameters, q0):
-        self.init([G] + list(parameters), np.ascontiguousarray(q0))
+    def __init__(self, G, parameters, q0, R):
+        self.init([G] + list(parameters),
+                  np.ascontiguousarray(q0),
+                  np.ascontiguousarray(R))
         self.cpotential.value[0] = <energyfunc>(isochrone_value)
         self.cpotential.density[0] = <densityfunc>(isochrone_density)
         self.cpotential.gradient[0] = <gradientfunc>(isochrone_gradient)
@@ -277,8 +284,10 @@ class IsochronePotential(CPotentialBase):
 
 cdef class HernquistWrapper(CPotentialWrapper):
 
-    def __init__(self, G, parameters, q0):
-        self.init([G] + list(parameters), np.ascontiguousarray(q0))
+    def __init__(self, G, parameters, q0, R):
+        self.init([G] + list(parameters),
+                  np.ascontiguousarray(q0),
+                  np.ascontiguousarray(R))
         self.cpotential.value[0] = <energyfunc>(hernquist_value)
         self.cpotential.density[0] = <densityfunc>(hernquist_density)
         self.cpotential.gradient[0] = <gradientfunc>(hernquist_gradient)
@@ -324,8 +333,10 @@ class HernquistPotential(CPotentialBase):
 
 cdef class PlummerWrapper(CPotentialWrapper):
 
-    def __init__(self, G, parameters, q0):
-        self.init([G] + list(parameters), np.ascontiguousarray(q0))
+    def __init__(self, G, parameters, q0, R):
+        self.init([G] + list(parameters),
+                  np.ascontiguousarray(q0),
+                  np.ascontiguousarray(R))
         self.cpotential.value[0] = <energyfunc>(plummer_value)
         self.cpotential.density[0] = <densityfunc>(plummer_density)
         self.cpotential.gradient[0] = <gradientfunc>(plummer_gradient)
@@ -370,8 +381,10 @@ class PlummerPotential(CPotentialBase):
 
 cdef class JaffeWrapper(CPotentialWrapper):
 
-    def __init__(self, G, parameters, q0):
-        self.init([G] + list(parameters), np.ascontiguousarray(q0))
+    def __init__(self, G, parameters, q0, R):
+        self.init([G] + list(parameters),
+                  np.ascontiguousarray(q0),
+                  np.ascontiguousarray(R))
         self.cpotential.value[0] = <energyfunc>(jaffe_value)
         self.cpotential.density[0] = <densityfunc>(jaffe_density)
         self.cpotential.gradient[0] = <gradientfunc>(jaffe_gradient)
@@ -415,8 +428,10 @@ class JaffePotential(CPotentialBase):
 
 cdef class StoneWrapper(CPotentialWrapper):
 
-    def __init__(self, G, parameters, q0):
-        self.init([G] + list(parameters), np.ascontiguousarray(q0))
+    def __init__(self, G, parameters, q0, R):
+        self.init([G] + list(parameters),
+                  np.ascontiguousarray(q0),
+                  np.ascontiguousarray(R))
         self.cpotential.value[0] = <energyfunc>(stone_value)
         self.cpotential.density[0] = <densityfunc>(stone_density)
         self.cpotential.gradient[0] = <gradientfunc>(stone_gradient)
@@ -465,8 +480,10 @@ class StonePotential(CPotentialBase):
 
 cdef class PowerLawCutoffWrapper(CPotentialWrapper):
 
-    def __init__(self, G, parameters, q0):
-        self.init([G] + list(parameters), np.ascontiguousarray(q0))
+    def __init__(self, G, parameters, q0, R):
+        self.init([G] + list(parameters),
+                  np.ascontiguousarray(q0),
+                  np.ascontiguousarray(R))
 
         if USE_GSL == 1:
             self.cpotential.value[0] = <energyfunc>(powerlawcutoff_value)
@@ -535,8 +552,10 @@ class PowerLawCutoffPotential(CPotentialBase):
 #
 cdef class SatohWrapper(CPotentialWrapper):
 
-    def __init__(self, G, parameters, q0):
-        self.init([G] + list(parameters), np.ascontiguousarray(q0))
+    def __init__(self, G, parameters, q0, R):
+        self.init([G] + list(parameters),
+                  np.ascontiguousarray(q0),
+                  np.ascontiguousarray(R))
         self.cpotential.value[0] = <energyfunc>(satoh_value)
         self.cpotential.density[0] = <densityfunc>(satoh_density)
         self.cpotential.gradient[0] = <gradientfunc>(satoh_gradient)
@@ -585,8 +604,10 @@ class SatohPotential(CPotentialBase):
 
 cdef class MiyamotoNagaiWrapper(CPotentialWrapper):
 
-    def __init__(self, G, parameters, q0):
-        self.init([G] + list(parameters), np.ascontiguousarray(q0))
+    def __init__(self, G, parameters, q0, R):
+        self.init([G] + list(parameters),
+                  np.ascontiguousarray(q0),
+                  np.ascontiguousarray(R))
         self.cpotential.value[0] = <energyfunc>(miyamotonagai_value)
         self.cpotential.density[0] = <densityfunc>(miyamotonagai_density)
         self.cpotential.gradient[0] = <gradientfunc>(miyamotonagai_gradient)
@@ -641,8 +662,10 @@ class MiyamotoNagaiPotential(CPotentialBase):
 
 cdef class SphericalNFWWrapper(CPotentialWrapper):
 
-    def __init__(self, G, parameters, q0):
-        self.init([G] + list(parameters), np.ascontiguousarray(q0))
+    def __init__(self, G, parameters, q0, R):
+        self.init([G] + list(parameters),
+                  np.ascontiguousarray(q0),
+                  np.ascontiguousarray(R))
         self.cpotential.value[0] = <energyfunc>(sphericalnfw_value)
         self.cpotential.density[0] = <densityfunc>(sphericalnfw_density)
         self.cpotential.gradient[0] = <gradientfunc>(sphericalnfw_gradient)
@@ -650,15 +673,19 @@ cdef class SphericalNFWWrapper(CPotentialWrapper):
 
 cdef class FlattenedNFWWrapper(CPotentialWrapper):
 
-    def __init__(self, G, parameters, q0):
-        self.init([G] + list(parameters), np.ascontiguousarray(q0))
+    def __init__(self, G, parameters, q0, R):
+        self.init([G] + list(parameters),
+                  np.ascontiguousarray(q0),
+                  np.ascontiguousarray(R))
         self.cpotential.value[0] = <energyfunc>(flattenednfw_value)
         self.cpotential.gradient[0] = <gradientfunc>(flattenednfw_gradient)
 
 cdef class TriaxialNFWWrapper(CPotentialWrapper):
 
-    def __init__(self, G, parameters, q0):
-        self.init([G] + list(parameters), np.ascontiguousarray(q0))
+    def __init__(self, G, parameters, q0, R):
+        self.init([G] + list(parameters),
+                  np.ascontiguousarray(q0),
+                  np.ascontiguousarray(R))
         self.cpotential.value[0] = <energyfunc>(triaxialnfw_value)
         self.cpotential.gradient[0] = <gradientfunc>(triaxialnfw_gradient)
 
@@ -850,8 +877,10 @@ class FlattenedNFWPotential(NFWPotential):
 
 cdef class LogarithmicWrapper(CPotentialWrapper):
 
-    def __init__(self, G, parameters, q0):
-        self.init([G] + list(parameters), np.ascontiguousarray(q0))
+    def __init__(self, G, parameters, q0, R):
+        self.init([G] + list(parameters),
+                  np.ascontiguousarray(q0),
+                  np.ascontiguousarray(R))
         self.cpotential.value[0] = <energyfunc>(logarithmic_value)
         self.cpotential.gradient[0] = <gradientfunc>(logarithmic_gradient)
 
@@ -912,8 +941,10 @@ class LogarithmicPotential(CPotentialBase):
 
 cdef class LeeSutoTriaxialNFWWrapper(CPotentialWrapper):
 
-    def __init__(self, G, parameters, q0):
-        self.init([G] + list(parameters), np.ascontiguousarray(q0))
+    def __init__(self, G, parameters, q0, R):
+        self.init([G] + list(parameters),
+                  np.ascontiguousarray(q0),
+                  np.ascontiguousarray(R))
         self.cpotential.value[0] = <energyfunc>(leesuto_value)
         self.cpotential.density[0] = <densityfunc>(leesuto_density)
         self.cpotential.gradient[0] = <gradientfunc>(leesuto_gradient)
@@ -966,8 +997,10 @@ class LeeSutoTriaxialNFWPotential(CPotentialBase):
 
 cdef class LongMuraliBarWrapper(CPotentialWrapper):
 
-    def __init__(self, G, parameters, q0):
-        self.init([G] + list(parameters), np.ascontiguousarray(q0))
+    def __init__(self, G, parameters, q0, R):
+        self.init([G] + list(parameters),
+                  np.ascontiguousarray(q0),
+                  np.ascontiguousarray(R))
         self.cpotential.value[0] = <energyfunc>(longmuralibar_value)
         self.cpotential.gradient[0] = <gradientfunc>(longmuralibar_gradient)
         self.cpotential.density[0] = <densityfunc>(longmuralibar_density)
@@ -1024,8 +1057,10 @@ class LongMuraliBarPotential(CPotentialBase):
 #
 cdef class NullWrapper(CPotentialWrapper):
 
-    def __init__(self, G, parameters, q0):
-        self.init([G], np.ascontiguousarray(q0))
+    def __init__(self, G, parameters, q0, R):
+        self.init([G],
+                  np.ascontiguousarray(q0),
+                  np.ascontiguousarray(R))
         self.cpotential.value[0] = <energyfunc>(null_value)
         self.cpotential.density[0] = <densityfunc>(null_density)
         self.cpotential.gradient[0] = <gradientfunc>(null_gradient)
